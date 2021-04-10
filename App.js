@@ -1,7 +1,7 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import styled from 'styled-components/native';
 import React from 'react';
-import { Searchbar } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import {
 	StatusBar,
 	StyleSheet,
@@ -26,6 +26,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeArea } from './src/utils/safe-area.component';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { colors } from './src/infrastructure/theme/colors';
+import { space } from './src/infrastructure/theme/spacing';
+import LottieView from 'lottie-react-native';
 
 const Title = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body}
@@ -35,21 +38,57 @@ const Title = styled(Text)`
 
 const Home = () => (
 	<SafeArea>
-		<Text>Home</Text>
+		<LottieView
+			key='animation'
+			playOnce
+			resizeMode='cover'
+			source={require('./src/assets/heart.json')}
+		/>
+		<Title>Home</Title>
 	</SafeArea>
 );
 const Logs = () => (
 	<SafeArea>
-		<Text>Logs</Text>
+		<Title>Logs</Title>
 	</SafeArea>
 );
 const Settings = () => (
 	<SafeArea>
-		<Text>Settings</Text>
+		<Title>Settings</Title>
 	</SafeArea>
 );
 
 const Tab = createBottomTabNavigator();
+
+const TAB_ICON = {
+	Home: 'md-boat',
+	Logs: 'md-book',
+	Settings: 'md-settings-sharp',
+};
+
+const createScreenOptions = ({ route }) => {
+	const iconName = TAB_ICON[route.name];
+	return {
+		tabBarIcon: ({ size, color }) => (
+			<Ionicons name={iconName} size={size} color={color} />
+		),
+	};
+};
+
+const AccountContainer = styled.View`
+	flex: 1;
+	justify-content: center;
+	background-color: rgba(255, 255, 255, 0.7);
+	padding: ${(props) => props.theme.space[4]};
+	margin-top: ${(props) => props.theme.space[2]};
+`;
+
+const AuthButton = styled(Button).attrs({
+	color: colors.brand.primary,
+})`
+	padding: ${(props) => props.theme.space[2]};
+	margin-top: ${(props) => props.theme.space[4]};
+`;
 
 export default function App() {
 	const [regLoaded] = useFonts({
@@ -67,25 +106,29 @@ export default function App() {
 		<>
 			<ThemeProvider theme={theme}>
 				{/* <SafeArea>
+					<AccountContainer>
+						<AuthButton
+							icon='lock-open-outline'
+							mode='contained'
+							onPress={() => console.log('Pressed')}>
+							Login
+						</AuthButton>
+						<AuthButton
+							icon='lock-open-outline'
+							mode='contained'
+							onPress={() => console.log('Pressed')}>
+							Register
+						</AuthButton>
+					</AccountContainer>
+				</SafeArea> */}
+
+				{/* <SafeArea>
 					<Title>Welcome aboard!</Title>
 				</SafeArea> */}
 
 				<NavigationContainer>
 					<Tab.Navigator
-						screenOptions={({ route }) => ({
-							tabBarIcon: ({ color, size }) => {
-								let iconName;
-
-								if (route.name === 'Home') {
-									iconName = 'md-boat';
-								} else if (route.name === 'Logs') {
-									iconName = 'md-book';
-								} else if (route.name === 'Settings') {
-									iconName = 'md-settings-sharp';
-								}
-								return <Ionicons name={iconName} size={size} color={color} />;
-							},
-						})}
+						screenOptions={createScreenOptions}
 						tabBarOptions={{
 							activeTintColor: '#222f65',
 							inactiveTintColor: 'gray',

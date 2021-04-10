@@ -10,6 +10,7 @@
   "dependencies": {
     "@expo-google-fonts/inconsolata": "^0.1.0",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/bottom-tabs": "^5.11.9",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
     "expo": "~40.0.0",

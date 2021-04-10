@@ -40,11 +40,12 @@ const Home = () => (
 	<SafeArea>
 		<LottieView
 			key='animation'
-			playOnce
+			autoPlay
+			loop
 			resizeMode='cover'
-			source={require('./src/assets/heart.json')}
+			source={require('./src/assets/sailboat.json')}
 		/>
-		<Title>Home</Title>
+		{/* <Title>Home</Title> */}
 	</SafeArea>
 );
 const Logs = () => (
@@ -91,6 +92,8 @@ const AuthButton = styled(Button).attrs({
 `;
 
 export default function App() {
+	const myFetch = fetch('https://warm-dusk-07017.herokuapp.com/logs');
+
 	const [regLoaded] = useFonts({
 		Inconsolata_400Regular,
 	});

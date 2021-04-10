@@ -1,35 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
+import React from 'react';
+import { Searchbar } from 'react-native-paper';
+import { StatusBar, StyleSheet, SafeAreaView, Text, View } from 'react-native';
+import { theme } from './src/infrastructure/theme';
+import { ThemeProvider } from 'styled-components/native';
 import { Task } from './src/features/task/Task';
-import { colors } from './src/utils/colors';
+
+import {
+	useFonts,
+	Inconsolata_400Regular,
+	Inconsolata_700Bold,
+} from '@expo-google-fonts/inconsolata';
 
 export default function App() {
-	const [task, setTask] = useState(null);
-	const [taskHistory, setTaskHistory] = useState([]);
+	let [regLoaded] = useFonts({
+		Inconsolata_400Regular,
+	});
+	let [boldLoaded] = useFonts({
+		Inconsolata_700Bold,
+	});
 
-	useEffect(() => {
-		if (task) {
-			setTask([...taskHistory, task]);
-		}
-	}, [task]);
-
-	console.log(taskHistory);
+	if (!regLoaded || !boldLoaded) {
+		return null;
+	}
 
 	return (
-		<View style={styles.container}>
-			{task ? (
-				<Text>{task}</Text>
-			) : (
-				<Task addTask={setTask} clearTask={() => setTask(null)} />
-			)}
-			<Text>{task}</Text>
-		</View>
+		<>
+			<ThemeProvider theme={theme}>
+				<Task />
+			</ThemeProvider>
+			<ExpoStatusBar style='auto' />
+		</>
 	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: colors.lightGray,
-	},
-});
+// const styles = StyleSheet.create({
+// 	container: {
+// 		flex: 1,
+// 		marginTop: StatusBar.currentHeight,
+// 	},
+// 	search: {
+// 		padding: 16,
+// 	},
+// 	list: {
+// 		flex: 1,
+// 		padding: 16,
+// 		backgroundColor: 'blue',
+// 	},
+// })

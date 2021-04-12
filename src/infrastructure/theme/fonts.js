@@ -21,3 +21,5 @@ export const fontSizes = {
 	h2: '56px',
 	h1: '112px',
 };
+
+// Reference: https://www.udemy.com/course/complete-react-native-mobile-development-zero-to-mastery-with-hooks/

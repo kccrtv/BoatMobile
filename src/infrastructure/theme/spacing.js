@@ -4,3 +4,5 @@ export const lineHeights = {
 };
 
 export const space = ['0px', '4px', '8px', '16px', '32px', '64px'];
+
+// Reference: https://www.udemy.com/course/complete-react-native-mobile-development-zero-to-mastery-with-hooks/

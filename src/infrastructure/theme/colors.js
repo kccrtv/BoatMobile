@@ -26,3 +26,5 @@ export const colors = {
 		success: '#138000',
 	},
 };
+
+// Reference: https://www.udemy.com/course/complete-react-native-mobile-development-zero-to-mastery-with-hooks/

@@ -1,34 +1,20 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import styled from 'styled-components/native';
 import React from 'react';
-import { Button } from 'react-native-paper';
-import {
-	StatusBar,
-	StyleSheet,
-	SafeAreaView,
-	Text,
-	View,
-	TextInput,
-} from 'react-native';
+import { Text } from 'react-native';
 import { theme } from './src/infrastructure/theme';
 import { ThemeProvider } from 'styled-components/native';
-// import { Task } from './src/features/task/Task';
-import TaskScreen from './src/features/task/screens/task.screen';
-import RoundedButton from './src/components/RoundedButton';
 import {
 	useFonts,
 	Inconsolata_400Regular,
 	Inconsolata_700Bold,
 } from '@expo-google-fonts/inconsolata';
-// import { TextInput } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeArea } from './src/utils/safe-area.component';
 import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { colors } from './src/infrastructure/theme/colors';
-import { space } from './src/infrastructure/theme/spacing';
 import LottieView from 'lottie-react-native';
+import { LogsScreen } from './src/features/logs/screens/logs.screen';
 
 const Title = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body}
@@ -45,14 +31,15 @@ const Home = () => (
 			resizeMode='cover'
 			source={require('./src/assets/sailboat.json')}
 		/>
-		{/* <Title>Home</Title> */}
 	</SafeArea>
 );
+
 const Logs = () => (
 	<SafeArea>
-		<Title>Logs</Title>
+		<LogsScreen />
 	</SafeArea>
 );
+
 const Settings = () => (
 	<SafeArea>
 		<Title>Settings</Title>
@@ -76,24 +63,7 @@ const createScreenOptions = ({ route }) => {
 	};
 };
 
-const AccountContainer = styled.View`
-	flex: 1;
-	justify-content: center;
-	background-color: rgba(255, 255, 255, 0.7);
-	padding: ${(props) => props.theme.space[4]};
-	margin-top: ${(props) => props.theme.space[2]};
-`;
-
-const AuthButton = styled(Button).attrs({
-	color: colors.brand.primary,
-})`
-	padding: ${(props) => props.theme.space[2]};
-	margin-top: ${(props) => props.theme.space[4]};
-`;
-
 export default function App() {
-	const myFetch = fetch('https://warm-dusk-07017.herokuapp.com/logs');
-
 	const [regLoaded] = useFonts({
 		Inconsolata_400Regular,
 	});
@@ -108,27 +78,6 @@ export default function App() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				{/* <SafeArea>
-					<AccountContainer>
-						<AuthButton
-							icon='lock-open-outline'
-							mode='contained'
-							onPress={() => console.log('Pressed')}>
-							Login
-						</AuthButton>
-						<AuthButton
-							icon='lock-open-outline'
-							mode='contained'
-							onPress={() => console.log('Pressed')}>
-							Register
-						</AuthButton>
-					</AccountContainer>
-				</SafeArea> */}
-
-				{/* <SafeArea>
-					<Title>Welcome aboard!</Title>
-				</SafeArea> */}
-
 				<NavigationContainer>
 					<Tab.Navigator
 						screenOptions={createScreenOptions}
@@ -147,17 +96,15 @@ export default function App() {
 	);
 }
 
-// const styles = StyleSheet.create({
-// 	container: {
-// 		flex: 1,
-// 		marginTop: StatusBar.currentHeight,
-// 	},
-// 	search: {
-// 		padding: 16,
-// 	},
-// 	list: {
-// 		flex: 1,
-// 		padding: 16,
-// 		backgroundColor: 'blue',
-// 	},
-// })
+/**
+ * Reference:
+ * https://www.udemy.com/course/complete-react-native-mobile-development-zero-to-mastery-with-hooks/
+ * https://reactnative.dev/
+ * https://github.com/expo/google-fonts
+ * https://callstack.github.io/react-native-paper/
+ * https://reactnavigation.org/
+ * https://github.com/lottie-react-native/lottie-react-native
+ * https://lottiefiles.com/
+ * https://icons.expo.fyi/
+ *
+ */
